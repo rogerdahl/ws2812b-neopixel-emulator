@@ -1,6 +1,6 @@
 #### Adafruit NeoPixel Emulator
 
-![screenshot](./screenshot.png)
+<img align="right" width="50%" src="./screenshot.png">
 
 This is a tool to speed up development of animated patterns for [WS2812B](https://www.adafruit.com/datasheets/WS2812B.pdf) RGB LEDs that are supported by the [Adafruit NeoPixel](https://www.adafruit.com/category/168) library for Arduino. It consists of a library that has the same interface as the NeoPixel library but that, instead of writing to actual WS2812B LEDs, renders the LEDs on screen using OpenGL. In addition, there's simple adapter code and implementations of a couple of the most common functions used in Arduino sketches (`delay()`, `random()` and `millis()`).
 
