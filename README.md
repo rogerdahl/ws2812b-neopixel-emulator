@@ -16,16 +16,22 @@ This was used for developing some NeoPixel patterns for a DigiSpark ATtiny85. Th
 
 As Douglas Adams might have said, getting things up and running with this app is almost, but not quite, entirely unlike getting things running on an Arduino. No part of the Arduino IDE or libraries are used in this project. It's just a regular PC app written in C++ and based on FreeGLUT that has been set up in such a way that one of the `.cpp` files can also be used as an Arduino sketch. The app should compile and run on any platform where FreeGLUT is available, such as Linux, Mac and Windows.     
 
-
 These instructions should work on Ubuntu, Mint and other Debian based systems. Tested on Linux Mint 17.2 64-bit.
-
-##### source
-
-Grab this code directly via `git`. `cd` to the directory, then:
 
 ##### Compiler and stuff
 
     $ sudo apt-get install build-essential
+
+##### freeGLUT
+
+    $ sudo apt-get install freeglut3-dev
+
+##### source
+
+Grab the code directly from this repository:
+
+    $ git clone <copy and paste the clone URL from the top of this page>
+    $ cd WS2812B-NeoPixel-Emulator
 
 ##### makeheaders
 
@@ -35,10 +41,6 @@ Set up makeheaders:
 
     $ wget http://www.hwaci.com/sw/mkhdr/makeheaders.c
     $ gcc -o makeheaders makeheaders.c
-
-##### freeGLUT
-
-    $ sudo apt-get install freeglut3-dev
 
 ##### OpenGL
 
