@@ -10,17 +10,26 @@ After implementing the desired effects on the PC, the sketch can be copied uncha
 
 Currently, only rendering of Adafruit NeoPixel Rings, like the [24 LED Ring](https://www.adafruit.com/products/1586) has been implemented, with ring and LED diameters set to look somewhat like that particular product.
 
+This was used for developing some NeoPixel patterns for a DigiSpark ATtiny85. The DigiSpark is a convenient platform for running battery powered blinky lights but is not so convenient for development as it must be unplugged and plugged back into the USB port each time the code is updated (which can easily be hundreds of times when tweaking parameters for animated effects, etc). Hence this small app. 
+
 #### Setup and Use
 
 As Douglas Adams might have said, getting things up and running with this app is almost, but not quite, entirely unlike getting things running on an Arduino. No part of the Arduino IDE or libraries are used in this project. It's just a regular PC app written in C++ and based on FreeGLUT that has been set up in such a way that one of the `.cpp` files can also be used as an Arduino sketch. The app should compile and run on any platform where FreeGLUT is available, such as Linux, Mac and Windows.     
 
-This was used for developing some NeoPixel patterns for a DigiSpark ATtiny85. The DigiSpark is a convenient platform for running battery powered blinky lights but is not so convenient for development as it must be unplugged and plugged back into the USB port each time the code is updated (which can easily be hundreds of times when tweaking parameters for animated effects, etc). Hence this small app. 
 
 These instructions should work on Ubuntu, Mint and other Debian based systems. Tested on Linux Mint 17.2 64-bit.
 
+##### source
+
+Grab this code directly via `git`. `cd` to the directory, then:
+
+##### Compiler and stuff
+
+    $ sudo apt-get install build-essential
+
 ##### makeheaders
 
-The main difference between an Arduino sketch and a regular .cpp file is that sketches have automatically generated prototypes. We use the [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task.
+The main difference between an Arduino sketch and a regular .cpp file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task.
  
 Set up makeheaders:
 
@@ -33,17 +42,11 @@ Set up makeheaders:
 
 ##### OpenGL
 
-You also need OpenGL drivers. These are specific to your graphics card and there's a good chance you already have them. If they appear to be missing, it's worth a try to set up the Mesa drivers:
+You also need OpenGL drivers. These are specific to your graphics card and you probably already have them. If they appear to be missing, it's worth a try to set up the Mesa drivers:
 
     $ sudo apt-get install mesa-common-dev (*install these only if you need them*)
 
-##### Compiler and stuff
-
-    $ sudo apt-get install build-essential
-
-##### source
-
-Grab this code directly via `git`. `cd` to the directory, then:
+Now you should be able to compile and run:
 
     $ make.sh && ./emulator
     
