@@ -1,8 +1,11 @@
-#include <inttypes.h>
-#include <vector>
-
 #ifndef NEOPIXEL_EMULATOR_H
 #define NEOPIXEL_EMULATOR_H
+
+#include <inttypes.h>
+#include <math.h>
+#include <vector>
+
+#include <GL/freeglut.h>
 
 // We ignore all these but define them so that client code doesn't break.
 #define NEO_RGB     0x00
@@ -13,12 +16,25 @@
 #define NEO_KHZ400  0x00
 #define NEO_SPDMASK 0x00
 
+#define u8 uint8_t
+#define u16 uint16_t
+#define u32 uint32_t
+#define s16 int16_t
+
+enum PixelLayout {
+    Strip,
+    Ring,
+    Grid,
+};
+
 class NeoPixelEmulator
 {
 public:
-    // Constructor: number of LEDs, pin number, LED type
+    // Constructor: number of pixels, pin number, pixel type
     NeoPixelEmulator(uint16_t numPixels, uint8_t pinNumber=0, uint8_t t=NEO_GRB);
     ~NeoPixelEmulator();
+
+    void setPixelLayout(PixelLayout);
 
     void begin(void);
     void show(void);
@@ -38,7 +54,15 @@ public:
     }
 
 private:
+    void drawLedStrip(float xCenter, float yCenter, int numLeds, float space, float ledRadius);
+    void drawLedRing(float x, float y, int numLeds, float circleRadius, float ledRadius);
+    void drawLedGrid(float xCenter, float yCenter, int numLedsX, int numLedsY, float space, float ledRadius);
+    void drawFilledCircle(GLfloat x, GLfloat y, GLfloat r, u8 R, u8 G, u8 B);
+    void __drawFilledCircle(GLfloat x, GLfloat y, GLfloat r);
+    void colorPackedToScalar(uint8_t* R, uint8_t* G, uint8_t* B, uint32_t color);
+
     std::vector<uint32_t> pixels;
+    PixelLayout _pixelLayout;
 };
 
 #endif

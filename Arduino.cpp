@@ -6,24 +6,14 @@
 
 #include "Arduino.h"
 
-void delay (int ms)
+void delay(int ms)
 {
-    usleep (ms * 1000);
+    usleep(ms * 1000);
 }
 
-int random (int min_num, int max_num)
+int random(int min, int max)
 {
-    int low_num = 0;
-    int hi_num = 0;
-    if (min_num < max_num) {
-        low_num = min_num;
-        hi_num = max_num + 1;
-    }
-    else {
-        low_num = max_num + 1;
-        hi_num = min_num;
-    }
-    return (rand() % (hi_num - low_num)) + low_num;
+    return (rand() % (max + 1 - min)) + min;
 }
 
 uint32_t millis()

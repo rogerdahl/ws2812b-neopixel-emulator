@@ -1,7 +1,7 @@
 #include "NeoPixelEmulator.h"
 #include "stdio.h"
 
-#include <GL/freeglut.h>
+#define M_PI 3.14159265358979323846
 
 NeoPixelEmulator::NeoPixelEmulator(uint16_t numLEDs, uint8_t p, uint8_t t)
     : pixels(numLEDs, 0)
@@ -12,17 +12,31 @@ NeoPixelEmulator::~NeoPixelEmulator()
 {
 }
 
+void NeoPixelEmulator::setPixelLayout(PixelLayout pixelLayout) {
+    _pixelLayout = pixelLayout;
+}
+
 void NeoPixelEmulator::begin(void)
 {
 }
 
 void NeoPixelEmulator::show(void)
 {
-    //printf("show()\n");
+    glClear(GL_COLOR_BUFFER_BIT);
+    switch (_pixelLayout) {
+    case Strip:
+        drawLedStrip(500, 500, numPixels(), 15, 10);
+        break;
+    case Ring:
+        drawLedRing(500, 500, numPixels(), 50, 50);
+        break;
+    case Grid:
+        int s = sqrt(numPixels());
+        drawLedGrid(500, 500, s, s, 80, 50);
+        break;
+    }
     // Double buffering.
     glutSwapBuffers();
-    // Set flag that causes GLUT to call display() in glutMainLoopEvent().
-    glutPostRedisplay();
     // GLUT process events, redrew screen.
     glutMainLoopEvent();
 }
@@ -91,4 +105,85 @@ uint8_t NeoPixelEmulator::getBrightness(void) const
 void NeoPixelEmulator::clear()
 {
     std::fill(pixels.begin(), pixels.end(), 0);
+}
+
+//
+// OpenGL.
+//
+
+void NeoPixelEmulator::drawLedStrip(GLfloat xCenter, GLfloat yCenter, int numLeds, GLfloat space, GLfloat ledRadius)
+{
+    for (int x = 0; x < numLeds; ++x) {
+        uint32_t c = pixels[x];
+        uint8_t R, G, B;
+        colorPackedToScalar(&R, &G, &B, c);
+        drawFilledCircle(xCenter - ((numLeds - 1) * space / 2.0f) + (x) * space,
+                         yCenter,
+                         ledRadius, R, G, B);
+    }
+}
+
+void NeoPixelEmulator::drawLedRing(GLfloat xCenter, GLfloat yCenter, int numLeds, GLfloat space, GLfloat ledRadius)
+{
+    GLfloat circleRadius = numLeds * (space + ledRadius) / (2.0 * M_PI);
+    for (int i = 0; i < numLeds; ++i) {
+        uint32_t c = pixels[i];
+        uint8_t R, G, B;
+        colorPackedToScalar(&R, &G, &B, c);
+        drawFilledCircle(xCenter + (circleRadius * cos(i * 2.0f * M_PI / numLeds)),
+                         yCenter + (circleRadius * sin(i * 2.0f * M_PI / numLeds)),
+                         ledRadius, R, G, B);
+    }
+}
+
+// Draw LED grid where the LEDs are ordered in a continuous, back-and-forth sequence.
+void NeoPixelEmulator::drawLedGrid(GLfloat xCenter, GLfloat yCenter, int numLedsX, int numLedsY, GLfloat space, GLfloat ledRadius)
+{
+    for (int y = 0; y < numLedsY; ++y) {
+        for (int x = 0; x < numLedsX; ++x) {
+            uint32_t c;
+            if (y & 1) {
+                c = pixels[x + y * numLedsX];
+            }
+            else {
+                c = pixels[numLedsX - x - 1 + y * numLedsX];
+            }
+            uint8_t R, G, B;
+            colorPackedToScalar(&R, &G, &B, c);
+            drawFilledCircle(xCenter - ((numLedsX - 1) * space / 2.0f) + (x) * space,
+                             yCenter - ((numLedsY - 1) * space / 2.0f) + (y) * space,
+                             ledRadius, R, G, B);
+        }
+    }
+}
+
+void NeoPixelEmulator::drawFilledCircle(GLfloat x, GLfloat y, GLfloat r, u8 R, u8 G, u8 B)
+{
+    glColor3ub(R, G, B);
+    glPointSize(r);
+    glBegin(GL_POINTS);
+    glVertex2f(x, y);
+    glEnd();
+}
+
+// When using AA with this method, I get some undrawn pixels radiating out from
+// the center. I'd like to find out why.
+void NeoPixelEmulator::__drawFilledCircle(GLfloat x, GLfloat y, GLfloat r)
+{
+    int numTriangles = 30;
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(x, y);
+    for (int i = 0; i <= numTriangles; ++i) {
+        glVertex2f(x + (r * cos(i * 2.0f * M_PI / numTriangles)),
+                   y + (r * sin(i * 2.0f * M_PI / numTriangles)));
+    }
+    glEnd();
+}
+
+void NeoPixelEmulator::colorPackedToScalar(uint8_t* R, uint8_t* G, uint8_t* B, uint32_t color) {
+    *B = color;
+    color >>= 8;
+    *G = color;
+    color >>= 8;
+    *R = color;
 }
