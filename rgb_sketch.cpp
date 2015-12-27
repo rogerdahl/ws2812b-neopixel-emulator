@@ -31,8 +31,8 @@ void setup()
 // Arduino_h is only defined when compiling the sketch in the Arduino IDE.
 #ifndef Arduino_h
     // Select line, circle or grid pixel layout for emulator.
-    pixels.setPixelLayout(Strip);
-    //pixels.setPixelLayout(Ring);
+    //pixels.setPixelLayout(Strip);
+    pixels.setPixelLayout(Ring);
     //pixels.setPixelLayout(Grid);
 #endif
     pixels.begin();
@@ -50,11 +50,11 @@ struct Segment {
 
 void loop()
 {
-    int runSeconds = 10;
+    int runSeconds = 60;
     u16 numSegments;
 
-    // Because I build the segment array in memory, I use both flash and sram for the segments and 5 is max or
-    // very close to max segments the ATtiny85 can handle. TODO: Try initializing the segments as const from literals.
+    // Because I build the segment arrays in memory, I use both flash and sram for the segments and 5 is max for
+    // what the ATtiny85 can handle with the current code. TODO: Try initializing the segments as const from literals.
     // That should cause them to stay in flash.
     const int maxSegments = 5;
     Segment segmentArr[maxSegments];
@@ -63,24 +63,22 @@ void loop()
     xmasRedGreenTwinkles(runSeconds);
 
     // Halloween 1
-    numSegments = 3;
-    for (u8 i = 0; i < numSegments; ++i) {
+    for (u8 i = 0; i < maxSegments; ++i) {
         segmentArr[i] = { 0xff6800, 30, 10 };
     }
-    smoothRunners(runSeconds, 10, segmentArr, numSegments);
+    smoothRunners(runSeconds, 10, segmentArr, maxSegments);
     clear(pixels.Color(0, 0, 0), 1000);
 
-    // Halloween 2
-    numSegments = 3;
-    for (u8 i = 0; i < numSegments; ++i) {
-        segmentArr[i] = { 0xff6800, 30, 5 };
-    }
-    smoothRunners(runSeconds, 10, segmentArr, numSegments);
-    clear(pixels.Color(0, 0, 0), 1000);
+//    // Halloween 2
+//    for (u8 i = 0; i < maxSegments; ++i) {
+//        segmentArr[i] = { 0xff6800, 30, 5 };
+//    }
+//    smoothRunners(runSeconds, 10, segmentArr, maxSegments);
+//    clear(pixels.Color(0, 0, 0), 1000);
 
     // Halloween 3
     for (u8 i = 0; i < maxSegments; ++i) {
-        segmentArr[i] = { 0xff6800, -60, 2 };
+        segmentArr[i] = { 0xff6800, -60, 20 };
     }
     smoothRunners(runSeconds, 10, segmentArr, maxSegments);
     clear(pixels.Color(0, 0, 0), 1000);
@@ -142,7 +140,7 @@ void loop()
         else {
             segmentArr[i].speed = random(-100, -200);
         }
-        segmentArr[i].lengthPercent = 2;
+        segmentArr[i].lengthPercent = 10;
     };
     smoothRunners(runSeconds, 20, segmentArr, maxSegments);
     clear(pixels.Color(0, 0, 0), 1000);

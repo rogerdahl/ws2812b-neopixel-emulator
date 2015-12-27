@@ -8,7 +8,7 @@ This allows an Arduino sketch that uses only the Adafruit NeoPixel library and t
 
 After implementing the desired effects on the PC, the sketch can be copied unchanged to the Arduino IDE for programming one of the Atmel microcontrollers supported by the Adafruit NeoPixel library.
 
-Currently, only rendering of Adafruit NeoPixel Rings, like the [24 LED Ring](https://www.adafruit.com/products/1586) has been implemented, with ring and LED diameters set to look somewhat like that particular product.
+Strip, Grid and Ring layouts are supported for the on-screen rendering of the LEDs. For instance a layout resembling the [24 LED Adafruit NeoPixel Ring](https://www.adafruit.com/products/1586), can be set up by selecting the Ring layout with 24 pixels. The selection is done by calling `setPixelLayout()` in the sketch. Only the emulator has the method, so the preprocessor is used for skipping the call when building for a microcontroller. This is demonstrated in the included sketch. 
 
 This was used for developing some NeoPixel patterns for a DigiSpark ATtiny85. The DigiSpark is a convenient platform for running battery powered blinky lights but is not so convenient for development as it must be unplugged and plugged back into the USB port each time the code is updated (which can easily be hundreds of times when tweaking parameters for animated effects, etc). Hence this small app. 
 
