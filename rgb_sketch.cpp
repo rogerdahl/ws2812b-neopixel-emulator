@@ -295,11 +295,11 @@ u8 channelWeightedAvg(u8 a, u8 b, u8 weight)
     return (aa + bb) >> 8;
 }
 
-void addPixelColor(u16 pixelPos, u32 color)
+void addPixelColor(u16 pixelPos, u32 addColor)
 {
-    u32 packedColor = pixels.getPixelColor(pixelPos);
-    u32 packedColorAdded = additiveColorMix(packedColor, color);
-    pixels.setPixelColor(pixelPos, packedColorAdded);
+    u32 oldColor = pixels.getPixelColor(pixelPos);
+    u32 newColor = additiveColorMix(oldColor, addColor);
+    pixels.setPixelColor(pixelPos, newColor);
 }
 
 u32 additiveColorMix(u32 color1, u32 color2)

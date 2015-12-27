@@ -50,7 +50,7 @@ You also need OpenGL drivers. These are specific to your graphics card and you p
 
 Now you should be able to compile and run:
 
-    $ make.sh && ./emulator
+    $ ./make.sh && ./emulator
     
 * Watch the blinkies on screen. Then exit by closing the window or hitting Ctrl-C in the shell.
 
