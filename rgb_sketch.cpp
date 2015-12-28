@@ -6,7 +6,7 @@
 // We use "pixel" to refer to a single WS2812B package, which contains three LEDs (red, green and blue).
 
 // Select number of pixels.
-#define NUM_PIXELS 60
+#define NUM_PIXELS 24
 
 // We copy some type name defines here to keep the sketch self contained.
 #define u8 uint8_t
@@ -50,7 +50,7 @@ struct Segment {
 
 void loop()
 {
-    int runSeconds = 60;
+    int runSeconds = 10;
     u16 numSegments;
 
     // Because I build the segment arrays in memory, I use both flash and sram for the segments and 5 is max for
@@ -179,6 +179,13 @@ void loop()
     segmentArr[2] = { 0x0000ff, -1500, 75 };
     smoothRunners(runSeconds, 1, segmentArr, 3);
     clear(pixels.Color(0, 0, 0), 1000);
+
+//    // tweaked for 16 pixel grid. darker rainbow
+//    segmentArr[0] = { 0xff0000, 60, 70 };
+//    segmentArr[1] = { 0x00ff00, 70, 70 };
+//    segmentArr[2] = { 0x0000ff, -80, 70 };
+//    smoothRunners(60*60, 20, segmentArr, 3);
+//    clear(pixels.Color(0, 0, 0), 1000);
 
     // Show single colors
     clear(0xff0000, 3000);
