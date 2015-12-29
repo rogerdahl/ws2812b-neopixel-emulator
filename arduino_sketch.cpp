@@ -19,7 +19,7 @@ Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB +
 
 // This must be below the short int type names and the NeoPixel library init.
 #ifndef Arduino_h
-#include "rgb_sketch.hpp"
+#include "arduino_sketch.hpp"
 // When running on the PC, we include stdio.h for printf() debugging.
 #include <stdio.h>
 #endif

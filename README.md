@@ -54,9 +54,9 @@ Now you should be able to compile and run:
     
 * Watch the blinkies on screen. Then exit by closing the window or hitting Ctrl-C in the shell.
 
-* Tweak rgb_sketch.cpp to make your own patterns.
+* Tweak arduino_sketch.cpp to make your own patterns.
 
 * Debug with a regular debugger or use `printf()` statements (the output appears in the shell).
 
-* When done, copy paste the rgb_sketch.cpp code into the Arduino IDE and write it to your device.
+* When done, copy paste the arduino_sketch.cpp code into the Arduino IDE and write it to your device.
 

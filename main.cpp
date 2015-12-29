@@ -6,7 +6,7 @@
 
 #define u8 uint8_t
 
-// rgb_sketch needs these.
+// arduino_sketch needs these.
 #define u8 uint8_t
 #define u16 uint16_t
 #define u32 uint32_t
@@ -14,7 +14,7 @@
 
 #include <Adafruit_NeoPixel.h>
 
-#include "rgb_sketch.hpp"
+#include "arduino_sketch.hpp"
 
 //void display(void)
 //{
