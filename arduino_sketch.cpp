@@ -36,6 +36,8 @@ void setup()
     //pixels.setPixelLayout(Grid);
 #endif
     pixels.begin();
+    // setBrightness() is intended for use only in setup() and not for animations. It's ignored by the emulator (see
+    // the README).
     pixels.setBrightness(50);
     pixels.show();
 }
