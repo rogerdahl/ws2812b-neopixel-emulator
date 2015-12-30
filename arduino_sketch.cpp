@@ -52,7 +52,7 @@ struct Segment {
 
 void loop()
 {
-    int runSeconds = 30;
+    int runSec = 60;
     u16 numSegments;
 
     // Because I build the segment arrays in memory, I use both flash and sram for the segments and 5 is max for
@@ -62,34 +62,34 @@ void loop()
     Segment segmentArr[maxSegments];
 
     // Xmas pattern and twinkles.
-    xmasRedGreenTwinkles(runSeconds);
+    xmasRedGreenTwinkles(runSec);
 
     // Halloween 1
     for (u8 i = 0; i < maxSegments; ++i) {
         segmentArr[i] = { 0xff6800, 30, 10 };
     }
-    smoothRunners(runSeconds, 10, segmentArr, maxSegments);
+    smoothRunners(runSec, 10, segmentArr, maxSegments);
     clear(pixels.Color(0, 0, 0), 1000);
 
 //    // Halloween 2
 //    for (u8 i = 0; i < maxSegments; ++i) {
 //        segmentArr[i] = { 0xff6800, 30, 5 };
 //    }
-//    smoothRunners(runSeconds, 10, segmentArr, maxSegments);
+//    smoothRunners(runSec, 10, segmentArr, maxSegments);
 //    clear(pixels.Color(0, 0, 0), 1000);
 
     // Halloween 3
     for (u8 i = 0; i < maxSegments; ++i) {
         segmentArr[i] = { 0xff6800, -60, 20 };
     }
-    smoothRunners(runSeconds, 10, segmentArr, maxSegments);
+    smoothRunners(runSec, 10, segmentArr, maxSegments);
     clear(pixels.Color(0, 0, 0), 1000);
 
     // RGB, even, short
     segmentArr[0] = { 0xff0000, 60, 8 };
     segmentArr[1] = { 0x00ff00, 60, 8 };
     segmentArr[2] = { 0x0000ff, 60, 8 };
-    smoothRunners(runSeconds, 20, segmentArr, 3);
+    smoothRunners(runSec, 20, segmentArr, 3);
     clear(pixels.Color(0, 0, 0), 1000);
 
     // Took these out because I ran out of room on the ATtiny85.
@@ -98,7 +98,7 @@ void loop()
 //    segmentArr[0] = { 0xff0000, 120, 8 };
 //    segmentArr[1] = { 0x00ff00, 120, 8 };
 //    segmentArr[2] = { 0x0000ff, 120, 8 };
-//    smoothRunners(runSeconds, 20, segmentArr, 3);
+//    smoothRunners(runSec, 20, segmentArr, 3);
 //    clear(pixels.Color(0, 0, 0), 1000);
 
 //    // Misc colors, many short segments, even spacing
@@ -114,7 +114,7 @@ void loop()
 //    segmentArr[9] = { 0xfff000, 120, 2 };
 //    segmentArr[10] = { 0x0fff00, 120, 2 };
 //    segmentArr[11] = { 0x000fff, 120, 2 };
-//    smoothRunners(runSeconds, 20, segmentArr, 12);
+//    smoothRunners(runSec, 20, segmentArr, 12);
 //    clear(pixels.Color(0, 0, 0), 1000);
 
 //    // Misc colors, many short segments, uneven spacing
@@ -130,7 +130,7 @@ void loop()
 //    segmentArr[9] = { 0xfff000, 154, 2 };
 //    segmentArr[10] = { 0x0fff00, 123, 2 };
 //    segmentArr[11] = { 0x000fff, 100, 2 };
-//    smoothRunners(runSeconds, 20, segmentArr, 12);
+//    smoothRunners(runSec, 20, segmentArr, 12);
 //    clear(pixels.Color(0, 0, 0), 1000);
 
     // Randomly colored single dots going both directions.
@@ -144,42 +144,42 @@ void loop()
         }
         segmentArr[i].lengthPercent = 10;
     };
-    smoothRunners(runSeconds, 20, segmentArr, maxSegments);
+    smoothRunners(runSec, 20, segmentArr, maxSegments);
     clear(pixels.Color(0, 0, 0), 1000);
 
     // even rainbow
     segmentArr[0] = { 0xff0000, 100, 100 };
     segmentArr[1] = { 0x00ff00, 100, 100 };
     segmentArr[2] = { 0x0000ff, 100, 100 };
-    smoothRunners(runSeconds, 20, segmentArr, 3);
+    smoothRunners(runSec, 20, segmentArr, 3);
     clear(pixels.Color(0, 0, 0), 1000);
 
     // uneven rainbow
     segmentArr[0] = { 0xff0000, -100, 100 };
     segmentArr[1] = { 0x00ff00, -120, 100 };
     segmentArr[2] = { 0x0000ff, -140, 100 };
-    smoothRunners(runSeconds, 20, segmentArr, 3);
+    smoothRunners(runSec, 20, segmentArr, 3);
     clear(pixels.Color(0, 0, 0), 1000);
 
     // darker rainbow
     segmentArr[0] = { 0xff0000, 60, 100 };
     segmentArr[1] = { 0x00ff00, 70, 100 };
     segmentArr[2] = { 0x0000ff, -80, 100 };
-    smoothRunners(runSeconds, 20, segmentArr, 3);
+    smoothRunners(runSec, 20, segmentArr, 3);
     clear(pixels.Color(0, 0, 0), 1000);
 
     // shimmer 1
     segmentArr[0] = { 0xff0000, 123, 75 };
     segmentArr[1] = { 0x00ff00, 456, 75 };
     segmentArr[2] = { 0x0000ff, -789, 75 };
-    smoothRunners(runSeconds, 1, segmentArr, 3);
+    smoothRunners(runSec, 1, segmentArr, 3);
     clear(pixels.Color(0, 0, 0), 1000);
 
     // shimmer 2
     segmentArr[0] = { 0xff0000, 1000, 75 };
     segmentArr[1] = { 0x00ff00, 2000, 75 };
     segmentArr[2] = { 0x0000ff, -1500, 75 };
-    smoothRunners(runSeconds, 1, segmentArr, 3);
+    smoothRunners(runSec, 1, segmentArr, 3);
     clear(pixels.Color(0, 0, 0), 1000);
 
 //    // tweaked for 16 pixel grid. darker rainbow
@@ -207,7 +207,7 @@ void loop()
     clear(0x000000, 3000);
 }
 
-void smoothRunners(u16 run_s, u16 delay_ms, struct Segment* segmentPtrIn, u8 numSegments)
+void smoothRunners(u16 runSec, u16 delayMs, struct Segment* segmentPtrIn, u8 numSegments)
 {
     u16 superPosBuf[numSegments];
     u16 numSuperPositions = pixels.numPixels() << 8;
@@ -216,13 +216,13 @@ void smoothRunners(u16 run_s, u16 delay_ms, struct Segment* segmentPtrIn, u8 num
         superPosBuf[i] = i * superPosOffset;
     }
 
-    u32 start_ms = millis();
-    while (millis() < start_ms + (run_s * 1000)) {
+    u32 startMs = millis();
+    while (millis() < startMs + runSec * 1000UL) {
         clear(0, 0);
         Segment* segmentPtr = segmentPtrIn;
         for (u8 i = 0; i < numSegments; ++i) {
             u16 superPos = superPosBuf[i];
-            superPos = wrap_add(superPos, segmentPtr->speed, numSuperPositions);
+            superPos = wrapAdd(superPos, segmentPtr->speed, numSuperPositions);
             superPosBuf[i] = superPos;
             u8 numSegmentPixels = segmentPtr->lengthPercent * pixels.numPixels() / 100;
             if (numSegmentPixels < 2) {
@@ -232,7 +232,7 @@ void smoothRunners(u16 run_s, u16 delay_ms, struct Segment* segmentPtrIn, u8 num
             ++segmentPtr;
         }
         pixels.show();
-        delay(delay_ms);
+        delay(delayMs);
     }
 }
 
@@ -245,7 +245,7 @@ void drawTaperedSegment(u16 superPos, u8 numSegmentPixels, u32 color)
         u32 color2 = calcTaperedSegmentPixel(numSegmentPixels, i + 1, color);
         u32 avgColor = colorWeightedAvg(color1, color2, 255 - shiftPos);
         addPixelColor(pixelPos, avgColor);
-        pixelPos = wrap_add(pixelPos, 1, pixels.numPixels() - 1);
+        pixelPos = wrapAdd(pixelPos, 1, pixels.numPixels() - 1);
     }
 }
 
@@ -339,65 +339,65 @@ u8 colorClampedChannelAdd(u8 a, u8 b) {
     return c;
 }
 
-void clear(u32 color, u16 clear_ms)
+void xmasRedGreenTwinkles(u16 runSec)
 {
-    u16 delay_ms = clear_ms / pixels.numPixels();
-    for (u16 i = 0; i < pixels.numPixels(); ++i) {
-        pixels.setPixelColor(i, color);
-        if (delay_ms) {
-            pixels.show();
-            delay(delay_ms);
+    const u8 flashOnDelayMs = 20;
+    const u8 flashPauseMs = 150;
+    const u8 numTwinklesPerSwap = 3;
+    bool redOrGreenFirst = false;
+    u32 startMs = millis();
+    u8 numTwinklesToNextSwap = 0;
+    while (millis() < startMs + runSec * 1000UL) {
+        if (!numTwinklesToNextSwap--) {
+            numTwinklesToNextSwap = numTwinklesPerSwap;
+            redOrGreenFirst = !redOrGreenFirst;
         }
-    }
-}
-
-void xmasRedGreenTwinkles(u16 run_s)
-{
-    u8 flash_on = 20;
-    u8 flash_pause = 150;
-    u8 twinkles_per_swap = 3;
-    u16 p = 0;
-    u16 p_cnt = 0;
-    u32 start_ms = millis();
-    while (millis() < start_ms + (run_s * 1000)) {
-        u8 twinkle_i = random(0, pixels.numPixels() - 1);
-        pixels.setPixelColor(twinkle_i, pixels.Color(255, 255, 255));
+        u8 twinkleLedIdx = random(0, pixels.numPixels() - 1);
+        pixels.setPixelColor(twinkleLedIdx, 0xffffff);
         pixels.show();
-        delay(flash_on);
+        delay(flashOnDelayMs);
         for (u8 i = 0; i < pixels.numPixels(); ++i) {
-            u32 c = (i + p) & 1 ? pixels.Color(255, 0, 0) : pixels.Color(0, 255, 0);
+            u32 c = (i + redOrGreenFirst) & 1 ? 0xff0000 : 0x00ff00;
             pixels.setPixelColor(i, c);
         }
         pixels.show();
-        delay(flash_pause);
-        if (++p_cnt == twinkles_per_swap) {
-            p_cnt = 0;
-            p += 1;
+        delay(flashPauseMs);
+    }
+}
+
+void clear(u32 color, u16 clearMs)
+{
+    u16 delayMs = clearMs / pixels.numPixels();
+    for (u16 i = 0; i < pixels.numPixels(); ++i) {
+        pixels.setPixelColor(i, color);
+        if (delayMs) {
+            pixels.show();
+            delay(delayMs);
         }
     }
 }
 
-int wrap(int p, int w)
+s16 wrap(s16 val, s16 maxVal)
 {
-    if (p < 0) {
-        return p + w;
+    if (val < 0) {
+        return val + maxVal;
     }
-    else if (p >= w) {
-        return p - w;
+    else if (val >= maxVal) {
+        return val - maxVal;
     }
     else {
-        return p;
+        return val;
     }
 }
 
-u16 wrap_add(s16 v, s16 add_v, s16 max_v)
+u16 wrapAdd(s16 val, s16 addVal, s16 maxVal)
 {
-    s16 t = v + add_v;
-    if (t > max_v) {
-        return t - max_v - 1;
+    s16 t = val + addVal;
+    if (t > maxVal) {
+        return t - maxVal - 1;
     }
     else if (t < 0) {
-        return max_v + t + 1;
+        return maxVal + t + 1;
     }
     else {
         return t;

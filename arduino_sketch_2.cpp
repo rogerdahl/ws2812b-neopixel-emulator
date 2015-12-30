@@ -51,21 +51,22 @@ struct Segment {
 
 void loop()
 {
-    // run_s, delay_ms, numMeteors, minPixels, maxPixels, minSpeed, maxSpeed
-    meteors(60, 20, 20, 2, 4, 50, 150);
-    meteors(60, 20, 10, 2, 50, 50, 150);
-    meteors(60, 20, 10, 2, 10, 50, 150);
+    int runSec = 60;
+    // runSec, delayMs, numMeteors, minPixels, maxPixels, minSpeed, maxSpeed
+    meteors(runSec, 20, 20, 2, 4, 50, 150);
+    meteors(runSec, 20, 10, 2, 50, 50, 150);
+    meteors(runSec, 20, 10, 2, 10, 50, 150);
 }
 
-void meteors(u16 run_s, u16 delay_ms, u8 numMeteors, u8 minPixels, u8 maxPixels, s16 minSpeed, s16 maxSpeed)
+void meteors(u16 runSec, u16 delayMs, u8 numMeteors, u8 minPixels, u8 maxPixels, s16 minSpeed, s16 maxSpeed)
 {
     Segment segmentArr[numMeteors];
     for (u8 i = 0; i < numMeteors; ++i) {
         segmentArr[i].superPos = 0xffff;
     }
     u16 maxSuperPosition = (pixels.numPixels() + maxPixels) << 8;
-    u32 start_ms = millis();
-    while (millis() < start_ms + (run_s * 1000)) {
+    u32 startMs = millis();
+    while (millis() < startMs + (runSec * 1000UL)) {
         clear();
         for (u8 i = 0; i < numMeteors; ++i) {
             if (segmentArr[i].superPos >= maxSuperPosition) {
@@ -78,7 +79,7 @@ void meteors(u16 run_s, u16 delay_ms, u8 numMeteors, u8 minPixels, u8 maxPixels,
             segmentArr[i].superPos += segmentArr[i].speed;
         }
         pixels.show();
-        delay(delay_ms);
+        delay(delayMs);
     }
 }
 
@@ -118,7 +119,7 @@ void clear()
     }
 }
 
-// Unchanged from arduino_sketch.cpp (but unused functions stripped out)
+// Copied from arduino_sketch.cpp.
 
 u32 colorWeightedAvg(u32 color1, u32 color2, u8 weight)
 {
