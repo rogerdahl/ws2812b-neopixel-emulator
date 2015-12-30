@@ -31,9 +31,9 @@ void setup()
 // Arduino_h is only defined when compiling the sketch in the Arduino IDE.
 #ifndef Arduino_h
     // Select line, circle or grid pixel layout for emulator.
-    //pixels.setPixelLayout(Strip);
+    // pixels.setPixelLayout(Strip);
     pixels.setPixelLayout(Ring);
-    //pixels.setPixelLayout(Grid);
+    // pixels.setPixelLayout(Grid);
 #endif
     pixels.begin();
     // setBrightness() is intended for use only in setup() and not for animations. It's ignored by the emulator (see
@@ -52,7 +52,7 @@ struct Segment {
 
 void loop()
 {
-    int runSeconds = 10;
+    int runSeconds = 5;
     u16 numSegments;
 
     // Because I build the segment arrays in memory, I use both flash and sram for the segments and 5 is max for

@@ -66,6 +66,8 @@ Now you should be able to compile and run:
 
 * `delay()` should always be called in the animation loop, typically after each call to `pixels.show()`. A delay of 20ms corresponds to a refresh rate of 50Hz (1 / 0.02) and is typically a good value to start with. Refreshing the LEDs more often (delay value lower than 20ms) will probably not cause animations to look any smoother. To speed up the animation it's probably better to increase the step size than the refresh rate.     
 
+* The emulator does not take into account that code runs more slowly on the device than on the PC. On the PC, virtually all the time will be spent in `delay()` calls but on the device, a non-significant portion of time is typically spent executing the program. The difference causes the sketch to run faster on the PC. The possible difference becomes larger the shorter the `delay()` is.
+
 #### Troubleshooting
         
 If the sketch works in the emulator but not on the device, some possible reasons are:
@@ -74,4 +76,4 @@ If the sketch works in the emulator but not on the device, some possible reasons
   
 * The supported microcontrollers are memory limited, some severely so. For instance, the Atmel ATtiny85 has only 512 bytes of RAM. When controlling 60 LEDs with the ATtiny85 (with the LED RGB values alone taking up 180 bytes (3 * 60), the included sketches use almost all available memory. Adding more functionality without removing something will typically cause them to run out of memory and crash on the device. There's no practical limit to how much memory the sketch can use when running on the PC.
 
-* The emulator does not take into account that code runs more slowly on the device than on the PC. On the PC, virtually all the time will be spent in `delay()` calls but on the device, a non-significant portion of time is typically spent executing the program. The difference causes the sketch to run faster on the PC. The possible difference becomes larger the shorter the `delay()` is.
+* If the colors are different between emulator and device, make sure that the 
