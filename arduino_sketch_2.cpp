@@ -151,9 +151,9 @@ u32 additiveColorMix(u32 color1, u32 color2)
     u8 r1, g1, b1, r2, g2, b2;
     colorPackedToScalar(&r1, &g1, &b1, color1);
     colorPackedToScalar(&r2, &g2, &b2, color2);
-    r1 = colorClampedChannelAdd(r1, r2);
-    g1 = colorClampedChannelAdd(g1, g2);
-    b1 = colorClampedChannelAdd(b1, b2);
+    r1 = colorChannelClampedAdd(r1, r2);
+    g1 = colorChannelClampedAdd(g1, g2);
+    b1 = colorChannelClampedAdd(b1, b2);
     u32 c = pixels.Color(r1, g1, b1);
     return c;
 }
@@ -166,7 +166,7 @@ void colorPackedToScalar(u8* r, u8* g, u8* b, u32 color) {
     *r = color;
 }
 
-u8 colorClampedChannelAdd(u8 a, u8 b) {
+u8 colorChannelClampedAdd(u8 a, u8 b) {
     u16 c = a + b;
     if (c > 255) {
         c = 255;
