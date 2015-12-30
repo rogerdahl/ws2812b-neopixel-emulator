@@ -24,6 +24,20 @@ Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB +
 #include <stdio.h>
 #endif
 
+// Example of wrapping stuff that will only compile in the IDE.
+#ifdef Arduino_h
+void debugMarker()
+{
+  pinMode(1, OUTPUT);
+  for (u8 i = 0; i < 10; ++i) {
+    digitalWrite(1, HIGH);
+    delay(500);
+    digitalWrite(1, LOW);
+    delay(500);
+  }
+}
+#endif
+
 // End of boilerplate.
 
 void setup()
@@ -63,6 +77,11 @@ void loop()
 
     // Xmas pattern and twinkles.
     xmasRedGreenTwinkles(runSec);
+
+    // Example of simple debugging of something that only breaks when running on the device.
+    //#ifdef Arduino_h
+    //    debugMarker();
+    //#endif
 
     // Halloween 1
     for (u8 i = 0; i < maxSegments; ++i) {
