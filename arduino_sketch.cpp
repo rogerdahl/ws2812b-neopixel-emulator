@@ -52,7 +52,7 @@ struct Segment {
 
 void loop()
 {
-    int runSeconds = 5;
+    int runSeconds = 30;
     u16 numSegments;
 
     // Because I build the segment arrays in memory, I use both flash and sram for the segments and 5 is max for
