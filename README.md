@@ -76,4 +76,4 @@ If the sketch works in the emulator but not on the device, some possible reasons
   
 * The supported microcontrollers are memory limited, some severely so. For instance, the Atmel ATtiny85 has only 512 bytes of RAM. When controlling 60 LEDs with the ATtiny85 (with the LED RGB values alone taking up 180 bytes (3 * 60), the included sketches use almost all available memory. Adding more functionality without removing something will typically cause them to run out of memory and crash on the device. There's no practical limit to how much memory the sketch can use when running on the PC.
 
-* If the colors are different between emulator and device, make sure that the 
+* If the colors are different between emulator and device, try changing the color channel ordering in the NeoPixel driver object instantiation. Possibilities are NEO_RGB, NEO_GRB and NEO_BRG. 
