@@ -53,6 +53,8 @@ You also need OpenGL drivers. These are specific to your graphics card and you p
 
 * Tweak arduino_sketch.cpp to make your own animations.
 
+* If working with multiple sketches, set the filename of the one to build in the `SKETCH` variable, close to the top in `CMakeLists.txt`.
+
 * Debug with a regular debugger or use `printf()` statements (the output appears in the shell).
 
 * When done, copy paste the `arduino_sketch.cpp` code into the Arduino IDE and write it to your device.
@@ -81,4 +83,4 @@ If the sketch works in the emulator but not on the device, some possible reasons
 
 #### makeheaders
 
-The main difference between an Arduino sketch and a regular `.cpp` file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task. As BSD licensed code can be included in MIT licensed projects, `makeheaders.c` included directly in this project.
+The main difference between an Arduino sketch and a regular `.cpp` file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task. As BSD licensed code can be included in MIT licensed projects, `makeheaders.c` is included directly in this project.
