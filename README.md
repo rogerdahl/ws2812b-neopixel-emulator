@@ -1,6 +1,6 @@
 #### Adafruit NeoPixel Emulator
 
-<img align="right" width="50%" src="./screenshot.png">
+<img align="right" width="50%" src="./assets/screenshot.png">
 
 This is a tool to speed up development of animated patterns for [WS2812B](https://www.adafruit.com/datasheets/WS2812B.pdf) RGB LEDs that are supported by the [Adafruit NeoPixel](https://www.adafruit.com/category/168) [library for Arduino](https://learn.adafruit.com/adafruit-neopixel-uberguide/arduino-library). It consists of a library that has the same interface as the NeoPixel library but that, instead of writing to actual WS2812B LEDs, renders the LEDs on screen using OpenGL. In addition, there's simple adapter code and implementations of a couple of the most common functions used in Arduino sketches (`delay()`, `random()` and `millis()`).
 
@@ -16,33 +16,36 @@ This was used for developing some NeoPixel patterns for a DigiSpark ATtiny85. Th
 
 As Douglas Adams might have said, getting things up and running with this app is almost, but not quite, entirely unlike getting things running on an Arduino. No part of the Arduino IDE or libraries are used in this project. It's just a regular PC app written in C++ and based on FreeGLUT that has been set up in such a way that one of the `.cpp` files can also be used as an Arduino sketch. The app should compile and run on any platform where FreeGLUT is available, such as Linux, Mac and Windows.     
 
-These instructions should work on Ubuntu, Mint and other Debian based systems. Tested on Linux Mint 17.2 64-bit.
+### Build on Linux
 
-##### Compiler and stuff
+These instructions should work on Ubuntu, Mint and other Debian based systems. Tested on Linux Mint 18.3 64-bit.
+
+#### Compiler and stuff
 
     $ sudo apt-get install build-essential
 
-##### freeGLUT
+#### freeGLUT
 
     $ sudo apt-get install freeglut3-dev
 
-##### source
+#### source
 
 Grab the code directly from this repository:
 
     $ git clone <copy and paste the clone URL from the top of this page>
-    $ cd WS2812B-NeoPixel-Emulator
+    $ cd ws2812b-neopixel-emulator
 
-##### makeheaders
+#### makeheaders
 
-The main difference between an Arduino sketch and a regular .cpp file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task.
+The main difference between an Arduino sketch and a regular `.cpp` file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task.
  
 Set up makeheaders:
 
+    $ cd ws2812b-neopixel-emulator
     $ wget http://www.hwaci.com/sw/mkhdr/makeheaders.c
-    $ gcc -o makeheaders makeheaders.c
+    $ gcc -o bin/makeheaders makeheaders.c
 
-##### OpenGL
+#### OpenGL
 
 You also need OpenGL drivers. These are specific to your graphics card and you probably already have them. If they appear to be missing, it's worth a try to set up the Mesa drivers:
 
@@ -50,15 +53,19 @@ You also need OpenGL drivers. These are specific to your graphics card and you p
 
 Now you should be able to compile and run:
 
-    $ ./make.sh && ./emulator
+    $ mkdir cmake-build
+    $ cd cmake-build
+    $ cmake ..
+    $ make
+    $ ./emulator
     
 * Watch the blinkies on screen. Then exit by closing the window or hitting Ctrl-C in the shell.
 
-* Tweak arduino_sketch.cpp to make your own patterns.
+* Tweak arduino_sketch.cpp to make your own animations.
 
 * Debug with a regular debugger or use `printf()` statements (the output appears in the shell).
 
-* When done, copy paste the arduino_sketch.cpp code into the Arduino IDE and write it to your device.
+* When done, copy paste the `arduino_sketch.cpp` code into the Arduino IDE and write it to your device.
 
 #### Notes
 
