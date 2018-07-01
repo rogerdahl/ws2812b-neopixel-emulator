@@ -16,26 +16,26 @@ This was used for developing some NeoPixel patterns for a DigiSpark ATtiny85. Th
 
 As Douglas Adams might have said, getting things up and running with this app is almost, but not quite, entirely unlike getting things running on an Arduino. No part of the Arduino IDE or libraries are used in this project. It's just a regular PC app written in C++ and based on FreeGLUT that has been set up in such a way that one of the `.cpp` files can also be used as an Arduino sketch. The app should compile and run on any platform where FreeGLUT is available, such as Linux, Mac and Windows.     
 
-### Build on Linux
+#### Build on Linux
 
 These instructions should work on Ubuntu, Mint and other Debian based systems. Tested on Linux Mint 18.3 64-bit.
 
-#### Compiler and stuff
+##### Compiler and stuff
 
     $ sudo apt-get install build-essential
 
-#### freeGLUT
+##### freeGLUT
 
     $ sudo apt-get install freeglut3-dev
 
-#### source
+##### source
 
 Grab the code directly from this repository:
 
     $ git clone <copy and paste the clone URL from the top of this page>
     $ cd ws2812b-neopixel-emulator
 
-#### makeheaders
+##### makeheaders
 
 The main difference between an Arduino sketch and a regular `.cpp` file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task.
  
@@ -45,13 +45,13 @@ Set up makeheaders:
     $ wget http://www.hwaci.com/sw/mkhdr/makeheaders.c
     $ gcc -o bin/makeheaders makeheaders.c
 
-#### OpenGL
+##### OpenGL
 
 You also need OpenGL drivers. These are specific to your graphics card and you probably already have them. If they appear to be missing, it's worth a try to set up the Mesa drivers:
 
     $ sudo apt-get install mesa-common-dev (*install these only if you need them*)
 
-Now you should be able to compile and run:
+#### Compile and run:
 
     $ mkdir cmake-build
     $ cd cmake-build
