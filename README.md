@@ -21,11 +21,9 @@ As Douglas Adams might have said, getting things up and running with this app is
 These instructions should work on Ubuntu, Mint and other Debian based systems. Tested on Linux Mint 18.3 64-bit.
 
 ##### Compiler and stuff
-
     $ sudo apt-get install build-essential
 
 ##### freeGLUT
-
     $ sudo apt-get install freeglut3-dev
 
 ##### source
@@ -40,7 +38,6 @@ Grab the code directly from this repository:
 The main difference between an Arduino sketch and a regular `.cpp` file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task.
  
 Set up makeheaders:
-
     $ cd ws2812b-neopixel-emulator
     $ wget http://www.hwaci.com/sw/mkhdr/makeheaders.c
     $ gcc -o bin/makeheaders makeheaders.c
@@ -52,7 +49,6 @@ You also need OpenGL drivers. These are specific to your graphics card and you p
     $ sudo apt-get install mesa-common-dev (*install these only if you need them*)
 
 #### Compile and run:
-
     $ mkdir cmake-build
     $ cd cmake-build
     $ cmake ..
