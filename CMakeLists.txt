@@ -34,13 +34,22 @@ add_executable(
   src/Arduino.cpp
 )
 
+# Build makeheaders
+add_executable(
+  makeheaders
+  src/makeheaders.c
+)
+
 # Generate headers for sketch
 add_custom_target(
-  makeheaders
+  run_makeheaders
   COMMAND bin/makeheaders ${SKETCH_CPP}
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   COMMENT "Generating headers for sketch. sketch=${SKETCH_CPP} wd=${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-# Always generate headers for sketch before building emulator.
-add_dependencies(emulator makeheaders)
+# Generate headers for sketch before building emulator
+add_dependencies(emulator run_makeheaders)
+
+# Build makeheaders before generating headers for sketch
+add_dependencies(run_makeheaders makeheaders)

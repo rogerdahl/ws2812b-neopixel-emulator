@@ -26,7 +26,8 @@ Adafruit_NeoPixel pixels =
 #include <stdio.h>
 #endif
 
-// Example of wrapping stuff that will only compile in the IDE.
+// Example of wrapping stuff that will only compile in the Arduino IDE.
+// Arduino_h is only defined when compiling the sketch in the Arduino IDE.
 #ifdef Arduino_h
 void debugMarker()
 {

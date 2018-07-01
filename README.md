@@ -35,16 +35,6 @@ Grab the code directly from this repository:
     $ git clone <copy and paste the clone URL from the top of this page>
     $ cd ws2812b-neopixel-emulator
 
-##### makeheaders
-
-The main difference between an Arduino sketch and a regular `.cpp` file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task.
- 
-Set up makeheaders:
-
-    $ cd ws2812b-neopixel-emulator
-    $ wget http://www.hwaci.com/sw/mkhdr/makeheaders.c
-    $ gcc -o bin/makeheaders makeheaders.c
-
 ##### OpenGL
 
 You also need OpenGL drivers. These are specific to your graphics card and you probably already have them. If they appear to be missing, it's worth a try to set up the Mesa drivers:
@@ -88,3 +78,7 @@ If the sketch works in the emulator but not on the device, some possible reasons
 * When compiling for the PC, the size of `int` is 32-bit (on both 32- and 64-bit CPUs and OSes). When compiling for the Atmel AVR processor architecture, [it's 16-bit](https://gcc.gnu.org/wiki/avr-gcc). This causes `int` types and expressions where types are implicitly promoted to `int` to be much more likely to overflow on the MCU. For instance, `uint8_t a = 100; uint32_t b = a * 1000;` will give the correct result of `b = 100,000` on the PC but a truncated result of `b = 31,072` on the MCU, even though a 32-bit `int` is used for holding the result on both platforms. This happens because, before taking part in an arithmetic operation, both operands must be of the same size and the result is calculated using that size. If the operands are not of the same size, they're promoted to the size of the largest operand or to `int` if the largest operand is smaller than `int`. In this example, the literal `1000` is implicitly `int`, so `a` is promoted to `int`. The multiplication is then performed using the resolution of `int`. On the PC, the result of the operation fits in a 32-bit `int` and is then directly stored in `b`. On the MCU, the result does not fit in a 16-bit `int`, causing an overflow. The truncated result is then expanded to 32-bits and stored in `b`. The fix for this is to make sure that at least one of the operands is the same size or larger than the size required for holding the result. In the example, this can be done by specifying `1000` as a 32-bit `int` by appending `UL` to the number or by casting one of the operands to 32-bit.
 
     The compiler breaks expressions involving multiple operands into subexpressions and the rules above apply to each subexpression. For instance, `uint32_t a = 50; uint8_t b = 100; uint32_t c = a + b * 1000;` will, on a machine with 16-bit `int`, overflow in the `b * 1000` subexpression even though `a` is a 32-bit `int`. First, `b` is promoted to `int` and the multiplication is performed with `int` resolution, yielding a truncated `int` result. Then the truncated result is promoted to 32-bit to match `a`, then added to `a`, yielding a 32-bit result which is stored directly in `c`.
+
+#### makeheaders
+
+The main difference between an Arduino sketch and a regular `.cpp` file is that sketches have automatically generated prototypes. We use [makeheaders](http://www.hwaci.com/sw/mkhdr/makeheaders.html) for this task. As BSD licensed code can be included in MIT licensed projects, `makeheaders.c` included directly in this project.
