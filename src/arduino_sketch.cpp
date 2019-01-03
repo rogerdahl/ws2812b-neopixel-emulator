@@ -387,7 +387,7 @@ void xmasRedGreenTwinkles(u16 runSec)
     pixels.setPixelColor(twinkleLedIdx, 0xffffff);
     pixels.show();
     delay(flashOnDelayMs);
-    for (u8 i = 0; i < pixels.numPixels(); ++i) {
+    for (u16 i = 0; i < pixels.numPixels(); ++i) {
       u32 c = (i + redOrGreenFirst) & 1 ? 0xff0000 : 0x00ff00;
       pixels.setPixelColor(i, c);
     }
