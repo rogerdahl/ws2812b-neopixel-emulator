@@ -47,7 +47,7 @@ You also need OpenGL drivers. These are specific to your graphics card and you p
     $ cd cmake-build
     $ cmake ..
     $ make
-    $ ./emulator
+    $ ../bin/emulator
     
 * Watch the blinkies on screen. Then exit by closing the window or hitting Ctrl-C in the shell.
 
